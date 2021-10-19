@@ -34,15 +34,15 @@ void scan_directory (char *dirname) { //ty daddy chris
     	    exit(EXIT_FAILURE);
     	}
     	if (S_ISREG(stat_info.st_mode) == 1) {
-    	    char *hash = convert_SHA2(path);
-    	    printf("%s: %s\n", path, hash);
+    	    stats(path);
     	} else {
     	    //deal with directories over here 
     	}
-    	//convert SHA2
-    	//using structs to identify files, then compare after conversion
-    	
     }
+    printf("Files Count: %i\n", total_files_count);
+    printf("Bytes Count: %i\n", total_bytes_count);
+    printf("Unique Files Count: %i\n", unique_count);
+    printf("Unique Bytes Count: %i\n", unique_bytes_count);
     closedir(dirp);
 }
 

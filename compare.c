@@ -1,21 +1,45 @@
 #include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
+#include <stdint.h>
 #include <stdlib.h>
+
 #include "duplicates.h"
 
-//  Compile with:  cc -std=c11 -Wall -Werror -o square square.c
+#include <sys/types.h>
+#include <dirent.h>
+#include <sys/stat.h>
 
-char *convert_SHA2(char filename[]) {
-    char *test = strSHA2(filename);
-    return(test);
+
+void stats(char filename[]) {
+    files = realloc(files, (nfiles+1)*sizeof(FILES));
+    // check for failure 
     
-    //takes the file hash
-    //checks if the hash is the the files array
-    //if not in the array, add it, including hash and size
-    //if already in the array, add size to total of duplicates and increase file count
+    //obtain hash to compare
+    char *hash = strSHA2(filename);
     
+    struct stat stat_info;
+    stat(filename, &stat_info);
     
-    
-    
-    
-    
+    bool check = true;
+    for (int i = 0; i < nfiles; i++) {
+        if (strcmp(files[i].hash, hash) == 0) { 
+            total_files_count++;
+            total_bytes_count = total_bytes_count + stat_info.st_size;
+            i = nfiles;
+            check = false;
+        } 
+    }
+    if (check == true) {
+        files[nfiles].hash = hash;
+        files[nfiles].size = stat_info.st_size;
+        files[nfiles].name = filename;
+        
+        total_files_count++;
+        total_bytes_count = total_bytes_count + files[nfiles].size;
+        unique_count++;
+        unique_bytes_count = unique_bytes_count + files[nfiles].size;
+        printf("Name: %s Hash: %s\n", files[nfiles].name, hash);
+        ++nfiles;
+    }
 }
