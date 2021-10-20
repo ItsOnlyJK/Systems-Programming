@@ -1,0 +1,1 @@
+cc -std=c11 -Wall -Werror -o dup  duplicates.c compare.c strSHA2.c globals.c
