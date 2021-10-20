@@ -11,10 +11,10 @@ HASH,  SIZE,  COUNT
 
 
 (System for duplicate file detection and storage)
-1. Iterate through database, locate file, retrieve hash and size 
+1. Iterate through database, locate file, retrieve HASH and SIZE
 2. Iterate throuhg files array
-	a) If hash does match	 --> increase count by 1
-	b) If hash doesn't match --> add hash and size to array, set count to 1
+	a) If HASH does match	 --> increase COUNT by 1
+	b) If HASH doesn't match --> add HASH and SIZE to array, set COUNT to 1
 3. Repeat...
 
 
