@@ -58,11 +58,12 @@ int main(int argcount, char *argv[])
     }
     else {
         if (argcount > 2) {
-            for (i = 1; i < (argcount-1); i++) {
+            for (int i = 1; i < (argcount-1); i++) {
                 if(strcmp(argv[1], '-f') {
-                    
+                    scan_directory(argv[++i]);
                 }
             }
+            scan_directory(argv[argcount-1]);
         }
         if(argcount < 2) {
             fprintf(stderr, "Usage: %s value1 [value2 ...]\n", argv[0]);
