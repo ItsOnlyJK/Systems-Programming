@@ -64,7 +64,7 @@ int main(int argcount, char *argv[])
             	scan_directory(argv[argcount - 1]);
             }
             if(strcmp(argv[1], "-A") == 0) {
-            	exit(EXIT_SUCCESS);
+            	exit(EXIT_FAILURE);
             }
             if(strcmp(argv[1], "-f") == 0) {
                 scan_directory(argv[argcount - 1]);
