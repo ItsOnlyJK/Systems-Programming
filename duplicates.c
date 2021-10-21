@@ -104,6 +104,30 @@ int main(int argcount, char *argv[])
                 fprintf(stderr, "Usage: %s value1 [value2 ...]\n", argv[0]);
                 exit(EXIT_FAILURE);	
             }
+            
+            if(strcmp(argv[1], "-l") == 0) {
+            	scan_directory(argv[argcount - 1]);
+            	for (int i = 0; i < nfiles; i++) {
+            	    if (files[i].dup == true) {
+            	    	for (int j = 0; j < nfiles; j++) {
+            	    	    if (files[j].hash == files[i].hash) {
+            	    	    	printf("%s\t", files[j].name);
+            	    	    }
+            	    	}
+            	    printf("\n");
+            	    }
+            	}
+            }
+            
+            if(strcmp(argv[1], "-q") == 0) {
+            	scan_directory(argv[argcount - 1]);
+            	for (int i = 0; i < nfiles; i++) {
+            	    if (files[i].dup == true) {
+            	    	exit(EXIT_FAILURE);
+            	    }
+            	}
+            	exit(EXIT_SUCCESS);
+            }
         }
         if(argcount < 2) {
             fprintf(stderr, "Usage: %s value1 [value2 ...]\n", argv[0]);
