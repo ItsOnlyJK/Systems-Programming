@@ -63,8 +63,8 @@ int main(int argcount, char *argv[])
             }
         }
         if(argcount < 2) {
-        fprintf(stderr, "Usage: %s value1 [value2 ...]\n", argv[0]);
-        exit(EXIT_FAILURE);			// Exit indicating failure
+            fprintf(stderr, "Usage: %s value1 [value2 ...]\n", argv[0]);
+            exit(EXIT_FAILURE);			// Exit indicating failure
     }
     return EXIT_SUCCESS;
 }
