@@ -36,7 +36,11 @@ void scan_directory (char *dirname) { //ty daddy chris
     	if (S_ISREG(stat_info.st_mode) == 1) {
     	    stats(path);
     	} else {
-    	    //deal with directories over here 
+    	    if (strcmp(dp->d_name, ".") == 0 || strcmp(dp->d_name, "..") == 0) {
+    	        continue;
+    	    } else {
+    	        scan_directory(path);
+    	    }
     	}
     }
     printf("Files Count: %i\n", total_files_count);
@@ -53,13 +57,14 @@ int main(int argcount, char *argv[])
             scan_directory(argv[1]);
     }
     else {
-        if(argcount < 2) {
-            fprintf(stderr, "Usage: %s value1 [value2 ...]\n", argv[0]);
-            exit(EXIT_FAILURE);			// Exit indicating failure
-        }
         if (argcount > 2) {
-            for (i = 1; )
+            if(strcmp(argv[1], '-f') {
+                   
+            }
         }
+        if(argcount < 2) {
+        fprintf(stderr, "Usage: %s value1 [value2 ...]\n", argv[0]);
+        exit(EXIT_FAILURE);			// Exit indicating failure
     }
     return EXIT_SUCCESS;
 }
