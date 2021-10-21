@@ -53,8 +53,12 @@ int main(int argcount, char *argv[])
     }
     else {
         if (argcount > 2) {
+        scan_directory(argv[argcount - 1]);
+            if(strcmp(argv[1], "-a") == 0) {
+            }
+            if(strcmp(argv[1], "-A") == 0) {
+            }
             if(strcmp(argv[1], "-f") == 0) {
-                scan_directory(argv[argcount - 1]);
                 char *hash = strSHA2(argv[2]);
                 for (int i = 0; i < nfiles; i++) {
                     if (strcmp(hash, files[i].hash) == 0) {
@@ -64,10 +68,6 @@ int main(int argcount, char *argv[])
                         exit(EXIT_SUCCESS);
                     }
                 }
-                printf("Files Count: %i\n", total_files_count);
-                printf("Bytes Count: %i\n", total_bytes_count);
-                printf("Unique Files Count: %i\n", unique_count);
-                printf("Unique Bytes Count: %i\n", unique_bytes_count);
                 exit(EXIT_SUCCESS);
             }
         }
