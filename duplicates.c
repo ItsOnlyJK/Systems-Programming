@@ -54,7 +54,7 @@ int main(int argcount, char *argv[])
     }
     else {
         if (argcount < 2) {
-            
+            exit(EXIT_FAILURE);
         }
         if(argcount < 2) {
         fprintf(stderr, "Usage: %s value1 [value2 ...]\n", argv[0]);
