@@ -58,8 +58,10 @@ int main(int argcount, char *argv[])
     }
     else {
         if (argcount > 2) {
-            if(strcmp(argv[1], '-f') {
-                   
+            for (i = 1; i < (argcount-1); i++) {
+                if(strcmp(argv[1], '-f') {
+                    
+                }
             }
         }
         if(argcount < 2) {
