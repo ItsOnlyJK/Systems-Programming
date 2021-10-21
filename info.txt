@@ -1,0 +1,17 @@
+Wordpress 5.4.2
+nginx 1.17.4
+PHP 5.6.40
+administrator password: devteam01 (also possible 123456)
+
+define( 'DB_NAME', 'dev' );
+
+/** MySQL database username */
+define( 'DB_USER', 'devtest' );
+
+/** MySQL database password */
+define( 'DB_PASSWORD', 'devteam01' );
+
+/** MySQL hostname */
+define( 'DB_HOST', 'localhost' );
+
+use exploit/unix/webapp/wp_admin_shell_upload

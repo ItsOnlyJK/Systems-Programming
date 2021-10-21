@@ -56,6 +56,9 @@ int main(int argcount, char *argv[])
     // Check the number of command-line arguments
     if (argcount == 2) {
          scan_directory(argv[1]);
+         for (int i = 0; i < nfiles; ++i) {
+               printf("Hash: %s\n", files[i].hash);
+         }
     }
     else {
         if (argcount > 2) {
@@ -63,10 +66,12 @@ int main(int argcount, char *argv[])
             	hidden_file_state = false;
             	scan_directory(argv[argcount - 1]);
             }
+            
             if(strcmp(argv[1], "-A") == 0) {
             	exit(EXIT_FAILURE);
             }
-            if(strcmp(argv[1], "-f") == 0) {
+            
+            if(strcmp(argv[1], "-f") == 0 && argcount == 4) {
                 scan_directory(argv[argcount - 1]);
                 char *hash = strSHA2(argv[2]);
                 bool check = false;
@@ -79,6 +84,25 @@ int main(int argcount, char *argv[])
                     }
                 }
                 exit(EXIT_SUCCESS);
+            } else if (strcmp(argv[1], "-f") == 0) {
+                fprintf(stderr, "Usage: %s value1 [value2 ...]\n", argv[0]);
+                exit(EXIT_FAILURE);	
+            }
+            
+            if (strcmp(argv[1], "-h") == 0 && argcount == 4) {
+                scan_directory(argv[argcount - 1]);
+                bool check = false;
+                for (int i = 0; i < nfiles; ++i) {
+                    if (strcmp(argv[2], files[i].hash) == 0) {
+                        printf("Match %s\n", files[i].name);
+                        check = true;
+                    } else if (i == nfiles - 1 && check == false) {
+                        exit(EXIT_FAILURE);
+                    }
+                }
+            } else if (strcmp(argv[1], "-h") == 0) {
+                fprintf(stderr, "Usage: %s value1 [value2 ...]\n", argv[0]);
+                exit(EXIT_FAILURE);	
             }
         }
         if(argcount < 2) {
