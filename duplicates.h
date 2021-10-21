@@ -10,6 +10,7 @@ typedef struct {
     char	*hash;
     char	*name;
     int	  	size;
+    bool	dup;
 } FILES;
 
 

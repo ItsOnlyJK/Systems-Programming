@@ -14,6 +14,7 @@
 void stats(char filename[]) {
     files = realloc(files, (nfiles+1)*sizeof(FILES));
     // check for failure 
+
     
     //obtain hash to compare
     char *hash = strSHA2(filename);
@@ -24,8 +25,14 @@ void stats(char filename[]) {
     bool check = true;
     for (int i = 0; i < nfiles; i++) {
         if (strcmp(files[i].hash, hash) == 0) { 
+            files[nfiles].hash = hash;
+            files[nfiles].size = stat_info.st_size;
+            files[nfiles].name = strdup(filename);
+            files[nfiles].dup = true;
+            
             total_files_count++;
             total_bytes_count = total_bytes_count + stat_info.st_size;
+            ++nfiles;
             i = nfiles;
             check = false;
         } 
@@ -33,13 +40,13 @@ void stats(char filename[]) {
     if (check == true) {
         files[nfiles].hash = hash;
         files[nfiles].size = stat_info.st_size;
-        files[nfiles].name = filename;
+        files[nfiles].name = strdup(filename);
+        files[nfiles].dup = false;
         
         total_files_count++;
         total_bytes_count = total_bytes_count + files[nfiles].size;
         unique_count++;
         unique_bytes_count = unique_bytes_count + files[nfiles].size;
-        printf("Name: %s Hash: %s\n", files[nfiles].name, hash);
         ++nfiles;
     }
 }
