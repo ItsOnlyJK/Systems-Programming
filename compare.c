@@ -10,7 +10,6 @@
 #include <dirent.h>
 #include <sys/stat.h>
 
-
 void stats(char filename[]) {
     files = realloc(files, (nfiles+1)*sizeof(FILES));
     // check for failure 
@@ -29,6 +28,8 @@ void stats(char filename[]) {
             files[nfiles].size = stat_info.st_size;
             files[nfiles].name = strdup(filename);
             files[nfiles].dup = true;
+            files[i].dup = true;
+            //printf("Dup: %s\n", files[nfiles].name);
             
             total_files_count++;
             total_bytes_count = total_bytes_count + stat_info.st_size;

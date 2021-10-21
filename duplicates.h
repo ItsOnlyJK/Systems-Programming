@@ -13,11 +13,11 @@ typedef struct {
     bool	dup;
 } FILES;
 
-
 // DECLARE GLOBAL FUNCTIONS
 extern	char 	   *strSHA2(char *filename);
 extern  void	   stats(char filename[]);
 extern  char* 	   strdup(const char*);
+extern  void       scan_directories(char *dirname);
 
 // DECLARE GLOBAL VARIABLES
 extern FILES	   *files;
