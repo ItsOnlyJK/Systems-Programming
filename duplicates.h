@@ -28,3 +28,4 @@ extern int 	   total_bytes_count;
 extern int 	   unique_count;
 extern int 	   unique_bytes_count;
 
+extern bool	   hidden_file_state;
