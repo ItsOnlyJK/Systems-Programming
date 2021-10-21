@@ -49,12 +49,16 @@ void scan_directory (char *dirname) { //ty daddy chris
 int main(int argcount, char *argv[])
 {
     // Check the number of command-line arguments
-    if(argcount < 2) {
-        fprintf(stderr, "Usage: %s value1 [value2 ...]\n", argv[0]);
-        exit(EXIT_FAILURE);			// Exit indicating failure
+    if (argcount == 2) {
+            scan_directory(argv[1]);
     }
     else {
-        scan_directory(argv[1]);
+        if (argcount < 2) {
+            
+        }
+        if(argcount < 2) {
+        fprintf(stderr, "Usage: %s value1 [value2 ...]\n", argv[0]);
+        exit(EXIT_FAILURE);			// Exit indicating failure
     }
     return EXIT_SUCCESS;
 }
