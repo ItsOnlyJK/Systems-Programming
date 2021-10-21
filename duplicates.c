@@ -12,8 +12,6 @@
 #include <dirent.h>
 #include <sys/stat.h>
 
-//  Compile with:  cc -std=c11 -Wall -Werror -o square square.c
-
 void scan_directory (char *dirname) { //ty daddy chris
     DIR *dirp = opendir(dirname);
     
@@ -43,10 +41,7 @@ void scan_directory (char *dirname) { //ty daddy chris
     	    }
     	}
     }
-    printf("Files Count: %i\n", total_files_count);
-    printf("Bytes Count: %i\n", total_bytes_count);
-    printf("Unique Files Count: %i\n", unique_count);
-    printf("Unique Bytes Count: %i\n", unique_bytes_count);
+
     closedir(dirp);
 }
 
@@ -54,20 +49,36 @@ int main(int argcount, char *argv[])
 {
     // Check the number of command-line arguments
     if (argcount == 2) {
-            scan_directory(argv[1]);
+         scan_directory(argv[1]);
     }
     else {
         if (argcount > 2) {
-            for (int i = 1; i < (argcount-1); i++) {
-                if(strcmp(argv[1], '-f') {
-                    scan_directory(argv[++i]);
+            if(strcmp(argv[1], "-f") == 0) {
+                scan_directory(argv[argcount - 1]);
+                char *hash = strSHA2(argv[2]);
+                for (int i = 0; i < nfiles; i++) {
+                    if (strcmp(hash, files[i].hash) == 0) {
+                        printf("Match %s\n", files[i].name);
+                    } else if (i == nfiles - 1) {
+                        printf("No Duplicates\n");
+                        exit(EXIT_SUCCESS);
+                    }
                 }
+                printf("Files Count: %i\n", total_files_count);
+                printf("Bytes Count: %i\n", total_bytes_count);
+                printf("Unique Files Count: %i\n", unique_count);
+                printf("Unique Bytes Count: %i\n", unique_bytes_count);
+                exit(EXIT_SUCCESS);
             }
-            scan_directory(argv[argcount-1]);
         }
         if(argcount < 2) {
             fprintf(stderr, "Usage: %s value1 [value2 ...]\n", argv[0]);
-            exit(EXIT_FAILURE);			// Exit indicating failure
+            exit(EXIT_FAILURE);	
+        }		// Exit indicating failure
     }
+    printf("Files Count: %i\n", total_files_count);
+    printf("Bytes Count: %i\n", total_bytes_count);
+    printf("Unique Files Count: %i\n", unique_count);
+    printf("Unique Bytes Count: %i\n", unique_bytes_count);
     return EXIT_SUCCESS;
 }
