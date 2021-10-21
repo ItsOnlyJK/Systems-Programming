@@ -53,12 +53,13 @@ int main(int argcount, char *argv[])
             scan_directory(argv[1]);
     }
     else {
-        if (argcount < 2) {
-            exit(EXIT_FAILURE);
-        }
         if(argcount < 2) {
-        fprintf(stderr, "Usage: %s value1 [value2 ...]\n", argv[0]);
-        exit(EXIT_FAILURE);			// Exit indicating failure
+            fprintf(stderr, "Usage: %s value1 [value2 ...]\n", argv[0]);
+            exit(EXIT_FAILURE);			// Exit indicating failure
+        }
+        if (argcount > 2) {
+            for (i = 1; )
+        }
     }
     return EXIT_SUCCESS;
 }
