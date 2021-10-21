@@ -32,8 +32,13 @@ void scan_directory (char *dirname) { //ty daddy chris
     	    exit(EXIT_FAILURE);
     	}
     	if (S_ISREG(stat_info.st_mode) == 1) {
-
-    	    stats(path);
+    	    if (dp->d_name[0] == '.') {
+    	    	if (hidden_file_state == false) {
+    	    	    stats(path);
+    	    	}
+    	    } else {
+    	    	 stats(path);
+    	    }
     	} else {
     	    if (strcmp(dp->d_name, ".") == 0 || strcmp(dp->d_name, "..") == 0) {
     	        continue;
@@ -45,11 +50,6 @@ void scan_directory (char *dirname) { //ty daddy chris
 
     closedir(dirp);
 }
-void list_files(void) {
-    for (int i =0; i<nfiles; ++i) {
-    	printf("%s\t%s\n", files[i].hash, files[i].name);
-    }
-}
 
 int main(int argcount, char *argv[])
 {
@@ -59,9 +59,15 @@ int main(int argcount, char *argv[])
     }
     else {
         if (argcount > 2) {
+            if(strcmp(argv[1], "-a") == 0) {
+            	hidden_file_state = false;
+            	scan_directory(argv[argcount - 1]);
+            }
+            if(strcmp(argv[1], "-A") == 0) {
+            	exit(EXIT_SUCCESS);
+            }
             if(strcmp(argv[1], "-f") == 0) {
                 scan_directory(argv[argcount - 1]);
-                list_files();
                 char *hash = strSHA2(argv[2]);
                 bool check = false;
                 for (int i = 0; i < nfiles; ++i) {
@@ -71,7 +77,6 @@ int main(int argcount, char *argv[])
                     } else if (i == nfiles - 1 && check == false) {
                         exit(EXIT_FAILURE);
                     }
-                    
                 }
                 exit(EXIT_SUCCESS);
             }
