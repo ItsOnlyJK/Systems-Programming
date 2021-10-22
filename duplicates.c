@@ -1,3 +1,7 @@
+//  CITS2002 Project 2 2021
+//  Name(s):             William Brown , Jake Scott-Hill
+//  Student number(s):   23114092 , 23124504
+
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
@@ -16,12 +20,16 @@
 int main(int argcount, char *argv[])
 {
     // If no command line options were given
-    if (argcount == 2) {
+    if (argcount == 2 && strcmp(argv[1], "-A") != 0) {
          scan_directories(argv[1]);
          printf("Files Count: %i\n", total_files_count);
          printf("Bytes Count: %i\n", total_bytes_count);
          printf("Unique Files Count: %i\n", unique_count);
          printf("Unique Bytes Count: %i\n", unique_bytes_count);
+    }
+    // we are cringe and did the basic version :(
+    if(strcmp(argv[1], "-A") == 0) {
+    	exit(EXIT_FAILURE);
     }
     else {
         
@@ -40,11 +48,6 @@ int main(int argcount, char *argv[])
             } else if (strcmp(argv[1], "-a") == 0) { // If command-line inputs were incorrect for -a
                 fprintf(stderr, "Usage: %s -l <directory>\n", argv[0]);
                 exit(EXIT_FAILURE);	
-            }
-            
-            // we are cringe and did the basic version :(
-            if(strcmp(argv[1], "-A") == 0) {
-            	exit(EXIT_FAILURE);
             }
             
             // Lists the pathnames of matching files using -f
