@@ -22,6 +22,7 @@ extern  void       scan_directories(char *dirname);
 // DECLARE GLOBAL VARIABLES
 extern FILES	   *files;
 extern int	   nfiles;
+extern int         count;
 
 extern int 	   total_files_count;
 extern int 	   total_bytes_count;
