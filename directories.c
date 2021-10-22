@@ -31,8 +31,10 @@ void scan_directories(char *dirname) { //ty daddy chris
     	    exit(EXIT_FAILURE);
     	}
     	if (S_ISREG(stat_info.st_mode) == 1) {
-    	    if (dp->d_name[0] == '.' && hidden_file_state == false) {
-    	        stats(path);
+    	    if (dp->d_name[0] == '.') {
+    	        if (hidden_file_state == false) {
+    	            stats(path);
+    	        }
             } else {
                 stats(path);
             }
