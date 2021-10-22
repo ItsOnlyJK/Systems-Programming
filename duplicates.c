@@ -113,6 +113,7 @@ int main(int argcount, char *argv[])
                 fprintf(stderr, "Usage: %s -l <directory>\n", argv[0]);
                 exit(EXIT_FAILURE);	
             }
+            
             // Tests if given directory contains duplicate files using -q
             if(strcmp(argv[1], "-q") == 0 && argcount == 3) {
             	scan_directories(argv[argcount - 1]);
@@ -127,6 +128,7 @@ int main(int argcount, char *argv[])
                 exit(EXIT_FAILURE);	
         	}
         }
+        
         // Invalid number of arguments error
         if(argcount < 2) { 
             fprintf(stderr, "Usage: %s <arg> <directory>\n", argv[0]);
