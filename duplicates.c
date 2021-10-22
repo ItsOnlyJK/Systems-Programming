@@ -126,7 +126,8 @@ int main(int argcount, char *argv[])
                 fprintf(stderr, "Usage: %s -q <directory>\n", argv[0]);
                 exit(EXIT_FAILURE);	
         }
-        if(argcount < 2) { // Invalid number of arguments
+        // Invalid number of arguments error
+        if(argcount < 2) { 
             fprintf(stderr, "Usage: %s <arg> <directory>\n", argv[0]);
             exit(EXIT_FAILURE);	
         }	
