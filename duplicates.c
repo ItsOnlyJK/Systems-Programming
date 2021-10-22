@@ -12,11 +12,11 @@
 #include <dirent.h>
 #include <sys/stat.h>
 
+// Check the number of command-line arguments
 int main(int argcount, char *argv[])
 {
-    // Check the number of command-line arguments
+    // If no command line options were given
     if (argcount == 2) {
-         //If no command line options were given
          scan_directories(argv[1]);
          printf("Files Count: %i\n", total_files_count);
          printf("Bytes Count: %i\n", total_bytes_count);
@@ -24,36 +24,49 @@ int main(int argcount, char *argv[])
          printf("Unique Bytes Count: %i\n", unique_bytes_count);
     }
     else {
-        if (argcount > 2) { //For command line optioons - Assumption that the command line options will be first 
-            if(strcmp(argv[1], "-a") == 0) {
-                //Revealing hidden files
+        
+        // For command line optioons - Assumption that the command line option(s) will be first followed by directory
+        if (argcount > 2) { 
+            
+            // Revealing hidden files using the -a command line option
+            if(strcmp(argv[1], "-a") == 0 && argcount == 3) {
             	hidden_file_state = false;
+                // Refer to directories.c where hidden_file_state == false
             	scan_directories(argv[argcount - 1]);
+                printf("Files Count: %i\n", total_files_count);
+                printf("Bytes Count: %i\n", total_bytes_count);
+                printf("Unique Files Count: %i\n", unique_count);
+                printf("Unique Bytes Count: %i\n", unique_bytes_count);
+            } else if (strcmp(argv[1], "-a") == 0) { // If command-line inputs were incorrect for -a
+                fprintf(stderr, "Usage: %s -l <directory>\n", argv[0]);
+                exit(EXIT_FAILURE);	
             }
             
+            // we are cringe and did the basic version :(
             if(strcmp(argv[1], "-A") == 0) {
-                //we are cringe and did the basic version :(
             	exit(EXIT_FAILURE);
             }
             
-            if(strcmp(argv[1], "-f") == 0 && argcount == 4) { //-f command option can only take 4 arguemnts 
+            // Lists the pathnames of matching files using -f
+            if(strcmp(argv[1], "-f") == 0 && argcount == 4) { 
                 scan_directories(argv[argcount - 1]);
-                char *hash = strSHA2(argv[2]); //grab hash of given file
+                char *hash = strSHA2(argv[2]); // Grab hash of given file
                 bool check = false;
-                for (int i = 0; i < nfiles; ++i) { // loop to check 
+                for (int i = 0; i < nfiles; ++i) { // Loop to check for matching hash
                     if (strcmp(hash, files[i].hash) == 0) {
                         printf("Match %s\n", files[i].name);
                         check = true;
-                    } else if (i == nfiles - 1 && check == false) {
+                    } else if (i == nfiles - 1 && check == false) { // If no matches
                         exit(EXIT_FAILURE);
                     }
                 }
                 exit(EXIT_SUCCESS);
-            } else if (strcmp(argv[1], "-f") == 0) {
-                fprintf(stderr, "Usage: %s value1 [value2 ...]\n", argv[0]);
+            } else if (strcmp(argv[1], "-f") == 0) { // If command-line inputs were incorrect for -f
+                fprintf(stderr, "Usage: %s -h <file> <directory>\n", argv[0]);
                 exit(EXIT_FAILURE);	
             }
             
+            // Lists the pathnames of the files with matching hashes using -h
             if (strcmp(argv[1], "-h") == 0 && argcount == 4) {
                 scan_directories(argv[argcount - 1]);
                 bool check = false;
@@ -65,13 +78,14 @@ int main(int argcount, char *argv[])
                         exit(EXIT_FAILURE);
                     }
                 }
-            } else if (strcmp(argv[1], "-h") == 0) {
-                fprintf(stderr, "Usage: %s -h <hash>\n", argv[0]);
+            } else if (strcmp(argv[1], "-h") == 0) { // If command-line inputs were incorrect for -h
+                fprintf(stderr, "Usage: %s -h <hash> <directory>\n", argv[0]);
                 exit(EXIT_FAILURE);	
             }
-            if(strcmp(argv[1], "-l") == 0) {
+            
+            // Lists the pathnames of all duplicate files using -l
+            if(strcmp(argv[1], "-l") == 0 && argcount == 3) {
             	scan_directories(argv[argcount - 1]);
-            	//JAKE MY KING CAN YOU PLEASE LOOK INTO POSSIBLY USING MALLOC OR SOME OTHER WAY TO DYNAMICALLY ALLOCATE MEMORY FOR THIS ARRAY
             	char *repeated_hash[1000];
             	int array_count = 0;
             	bool check = false;
@@ -95,8 +109,12 @@ int main(int argcount, char *argv[])
             	        }
             	    }
             	}
-            }
-            if(strcmp(argv[1], "-q") == 0) {
+            } else if (strcmp(argv[1], "-l") == 0) { // If command-line inputs were incorrect for -l
+                fprintf(stderr, "Usage: %s -l <directory>\n", argv[0]);
+                exit(EXIT_FAILURE);	
+            
+            // Tests if given directory contains duplicate files using -q
+            if(strcmp(argv[1], "-q") == 0 && argcount == 3) {
             	scan_directories(argv[argcount - 1]);
             	for (int i = 0; i < nfiles; i++) {
             	    if (files[i].dup == true) {
@@ -104,12 +122,14 @@ int main(int argcount, char *argv[])
             	    }
             	}
             	exit(EXIT_SUCCESS);
-            }
+            } else if (strcmp(argv[1], "-q") == 0) { // If command-line inputs were incorrect for -q
+                fprintf(stderr, "Usage: %s -q <directory>\n", argv[0]);
+                exit(EXIT_FAILURE);	
         }
-        if(argcount < 2) {
-            fprintf(stderr, "Usage: %s value1 [value2 ...]\n", argv[0]);
+        if(argcount < 2) { // Invalid number of arguments
+            fprintf(stderr, "Usage: %s <arg> <directory>\n", argv[0]);
             exit(EXIT_FAILURE);	
-        }		// Exit indicating failure
+        }	
     }
     return EXIT_SUCCESS;
 }
