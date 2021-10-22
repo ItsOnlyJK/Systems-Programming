@@ -27,10 +27,10 @@ int main(int argcount, char *argv[])
     }
     else {
         if (argcount > 2) {
-            if(strcmp(argv[1], "-a") == 0) {
+            if(strcmp(argv[1], "-a") == 0 && argcount == 3) {
             	hidden_file_state = false;
             	scan_directories(argv[argcount - 1]);
-            }
+            } 
             
             if(strcmp(argv[1], "-A") == 0) {
             	exit(EXIT_FAILURE);
@@ -69,7 +69,7 @@ int main(int argcount, char *argv[])
                 fprintf(stderr, "Usage: %s value1 [value2 ...]\n", argv[0]);
                 exit(EXIT_FAILURE);	
             }
-            if(strcmp(argv[1], "-l") == 0) {
+            if(strcmp(argv[1], "-l") == 0  && argcount == 3) {
             	scan_directories(argv[argcount - 1]);
             	char *testing[1000];
             	int array_count = 0;
@@ -95,7 +95,7 @@ int main(int argcount, char *argv[])
             	    }
             	}
             }
-            if(strcmp(argv[1], "-q") == 0) {
+            if(strcmp(argv[1], "-q") == 0  && argcount == 3) {
             	scan_directories(argv[argcount - 1]);
             	for (int i = 0; i < nfiles; i++) {
             	    if (files[i].dup == true) {
@@ -103,7 +103,8 @@ int main(int argcount, char *argv[])
             	    }
             	}
             	exit(EXIT_SUCCESS);
-            }
+            } else if
+                
         }
         if(argcount < 2) {
             fprintf(stderr, "Usage: %s value1 [value2 ...]\n", argv[0]);
